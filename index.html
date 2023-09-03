@@ -3,9 +3,114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;0,6..12,900;0,6..12,1000;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700;1,6..12,800;1,6..12,900;1,6..12,1000&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="style.css" />
+
     <script defer src="script.js"></script>
+
     <title>REST Countries API</title>
   </head>
-  <body></body>
+  <body>
+    <header class="header">
+        <div class="header__container">
+            <strong class="header__title"> Where in the world? </strong>
+            <div class="header__button">
+                <img
+                src="/img/dark_icon.svg"
+                alt="dark mode icon"
+                class="header__button-icon"
+                />
+                <p class="header__button-text">Dark Mode</p>
+            </div>
+        </div>
+      </div>
+    </header>
+    <main class="countries_container">
+        <div class="countries__search">
+            <input class="countries__input" type="text" placeholder="Search for a country..." value="">
+            <div class="countries__filter">
+                <button class="countries__filter-button">
+                    <span>Filter by region</span>
+                    <img src="/img/down-arrow_icon.svg" alt="">
+                </button>
+                <ul class="countries__filter-dropdown hidden">
+                    <li role="button">Africa</li>
+                    <li role="button">America</li>
+                    <li role="button">Asia</li>
+                    <li role="button">Europe</li>
+                    <li role="button">Oceania</li>
+                </ul>
+            </div>
+        </div>
+        <div class="countries__items">
+            <article class="country">
+              <img class="country__img" src="/img/flag.png" />
+              <div class="country__data">
+                <h3 class="country__name">Country</h3>
+                <p class="country__row"><strong>Population: </strong>1,000,000</p>
+                <p class="country__row"><strong>Region: </strong>Europe</p>
+                <p class="country__row"><strong>Capital: </strong>City</p>
+              </div>
+            </article>
+    
+            <article class="country">
+                <img class="country__img" src="/img/flag.png" />
+                <div class="country__data">
+                  <h3 class="country__name">Country</h3>
+                  <p class="country__row"><strong>Population: </strong>1,000,000</p>
+                  <p class="country__row"><strong>Region: </strong>Europe</p>
+                  <p class="country__row"><strong>Capital: </strong>City</p>
+                </div>
+              </article>
+
+              <article class="country">
+                <img class="country__img" src="/img/flag.png" />
+                <div class="country__data">
+                  <h3 class="country__name">Country</h3>
+                  <p class="country__row"><strong>Population: </strong>1,000,000</p>
+                  <p class="country__row"><strong>Region: </strong>Europe</p>
+                  <p class="country__row"><strong>Capital: </strong>City</p>
+                </div>
+              </article>
+
+              <article class="country">
+                <img class="country__img" src="/img/flag.png" />
+                <div class="country__data">
+                  <h3 class="country__name">Country</h3>
+                  <p class="country__row"><strong>Population: </strong>1,000,000</p>
+                  <p class="country__row"><strong>Region: </strong>Europe</p>
+                  <p class="country__row"><strong>Capital: </strong>City</p>
+                </div>
+              </article>
+
+              <article class="country">
+                <img class="country__img" src="/img/flag.png" />
+                <div class="country__data">
+                  <h3 class="country__name">Country</h3>
+                  <p class="country__row"><strong>Population: </strong>1,000,000</p>
+                  <p class="country__row"><strong>Region: </strong>Europe</p>
+                  <p class="country__row"><strong>Capital: </strong>City</p>
+                </div>
+              </article>
+
+              <article class="country">
+                <img class="country__img" src="/img/flag.png" />
+                <div class="country__data">
+                  <h3 class="country__name">Country</h3>
+                  <p class="country__row"><strong>Population: </strong>1,000,000</p>
+                  <p class="country__row"><strong>Region: </strong>Europe</p>
+                  <p class="country__row"><strong>Capital: </strong>City</p>
+                </div>
+              </article>
+        </div>
+          
+    </main>
+  </body>
 </html>

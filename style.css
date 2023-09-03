@@ -1,0 +1,282 @@
+/* ------------------- */
+/* Custom properties   */
+/* ------------------- */
+
+:root {
+  --background-color: hsla(0, 0%, 98%, 1);
+  --item-color: hsla(0, 0%, 100%, 1);
+  --font-secondary-color: hsl(0, 0%, 52%);
+  --font-primary-color: hsl(200, 15%, 8%);
+
+  /* font-families */
+  --ff-nunito: "Nunito Sans", sans-serif;
+
+  /* font-size */
+  --fs-800: 2.4rem;
+  --fs-600: 1.8rem;
+  --fs-400: 1.6rem;
+  --fs-200: 1.4rem;
+
+  /* padding */
+  --padding-800: 3.2rem;
+  --padding-600: 2.4rem;
+  --padding-400: 1.6rem;
+  --padding-200: 0.8rem;
+
+  /* margin */
+  --margin-800: 3.2rem;
+  --margin-600: 2.4rem;
+  --margin-400: 1.6rem;
+  --margin-200: 0.8rem;
+}
+
+body[data-theme="light"] {
+  --background-color: hsla(0, 0%, 98%, 1);
+  --item-color: hsla(0, 0%, 100%, 1);
+  --font-secondary-color: hsl(0, 0%, 52%);
+  --font-primary-color: hsl(200, 15%, 8%);
+}
+
+body[data-theme="dark"] {
+  --background-color: hsl(207, 26%, 17%);
+  --item-color: hsl(209, 23%, 22%);
+  --font-secondary-color: hsl(0, 0%, 100%);
+  --font-primary-color: hsl(0, 0%, 100%);
+}
+
+/* ------------------- */
+/* Reset               */
+/* ------------------- */
+
+/* Box sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Set font size */
+html {
+  font-size: 62.5%;
+}
+
+/* Reset margins and paddings */
+body,
+main,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+picture {
+  margin: 0;
+  padding: 0;
+}
+
+/* set up the body */
+body {
+  font-family: var(--ff-nunito);
+  color: var(--font-primary-color);
+  line-height: normal;
+
+  background: var(--background-color);
+  min-height: 100vh;
+}
+
+/* make images easier to work with */
+img,
+picutre {
+  max-width: 100%;
+  display: block;
+}
+
+/* make form elements easier to work with */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  padding: 2.4rem 0;
+
+  background-color: var(--background-color);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+
+  max-width: 128rem;
+}
+
+.header__title {
+  display: flex;
+
+  font-size: var(--fs-800);
+  font-weight: 800;
+}
+
+.header__button {
+  display: flex;
+  align-items: center;
+}
+
+.header__button-icon {
+  width: 2rem;
+  height: 2rem;
+
+  margin-right: 8px;
+}
+
+.header__button-text {
+  font-size: var(--fs-400);
+}
+
+.countries_container {
+  max-width: 128rem;
+  min-height: 102.4rem;
+  margin: 0 auto;
+  padding: 12.8rem 0rem;
+
+  background-color: var(--background-color);
+}
+
+.countries__search {
+  display: flex;
+  justify-content: space-between;
+}
+
+.countries__input {
+  width: 48rem;
+  height: 5.6rem;
+  padding-left: 7.4rem;
+
+  font-size: var(--fs-200);
+  color: var(--font-secondary-color);
+
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+
+  background: url(/img/search_icon.svg) no-repeat 1.8rem;
+  background-position: 3.2rem 50%;
+  background-color: var(--item-color);
+}
+
+.countries__filter {
+  position: relative;
+}
+
+.countries__filter-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 2.4rem;
+
+  font-size: var(--fs-200);
+  color: var(--font-primary-color);
+
+  width: 20rem;
+  height: 5.6rem;
+
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+
+  background-color: var(--item-color);
+}
+
+.countries__filter-dropdown {
+  position: absolute;
+  top: 4.7rem;
+  left: 0;
+
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  width: 20rem;
+  padding: 1.6rem 2.4rem;
+
+  color: var(--font-primary-color);
+  font-size: var(--fs-200);
+
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+
+  background-color: var(--item-color);
+}
+
+.countries__items {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 7.4rem;
+
+  justify-items: center;
+
+  margin-top: 4.8rem;
+}
+
+.country {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  width: 26.4rem;
+  height: 33.6rem;
+
+  border-radius: 5px;
+  box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
+
+  background-color: var(--item-color);
+}
+
+.country__data {
+  padding: var(--padding-600);
+
+  font-size: var(--fs-200);
+}
+
+.country__name {
+  font-size: var(--fs-600);
+  margin-bottom: var(--margin-400);
+}
+
+.country__row {
+  margin-bottom: var(--margin-200);
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 1300px) {
+  .countries__items {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 1000px) {
+  .countries__items {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .countries__items {
+    grid-template-columns: 1fr;
+  }
+}
