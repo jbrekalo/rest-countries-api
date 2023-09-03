@@ -264,19 +264,37 @@ select {
 }
 
 @media (max-width: 1300px) {
+  .country {
+    width: auto;
+    height: auto;
+  }
+
   .countries__items {
     grid-template-columns: 1fr 1fr 1fr;
+    padding: 0 10%;
   }
 }
 
 @media (max-width: 1000px) {
+  .country {
+    width: auto;
+    height: auto;
+  }
+
   .countries__items {
     grid-template-columns: 1fr 1fr;
+    padding: 0 10%;
   }
 }
 
 @media (max-width: 700px) {
+  .country {
+    width: auto;
+    height: auto;
+  }
+
   .countries__items {
     grid-template-columns: 1fr;
+    padding: 0 10%;
   }
 }
