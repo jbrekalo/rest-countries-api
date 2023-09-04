@@ -107,7 +107,7 @@ select {
   padding: 2.4rem 1.6rem;
   z-index: 1;
 
-  background-color: var(--background-color);
+  background-color: var(--item-color);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.06);
 }
 
@@ -129,6 +129,8 @@ select {
 .header__button {
   display: flex;
   align-items: center;
+
+  cursor: pointer;
 }
 
 .header__button-icon {
@@ -137,6 +139,16 @@ select {
 
   margin-right: 8px;
 }
+
+/* .header__button-fill--light {
+  fill: none;
+  stroke: hsl(207, 26%, 17%);
+}
+
+.header__button-fill--dark {
+  fill: hsl(0, 0%, 100%);
+  stroke: hsl(0, 0%, 100%);
+} */
 
 .header__button-text {
   font-size: var(--fs-400);
@@ -198,6 +210,8 @@ select {
   border-radius: 0.5rem;
   box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
 
+  cursor: pointer;
+
   background-color: var(--item-color);
 }
 
@@ -225,6 +239,10 @@ select {
   background-color: var(--item-color);
 }
 
+.countries__filter-dropdown li {
+  cursor: pointer;
+}
+
 .countries__items {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -247,6 +265,13 @@ select {
   box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, 0.05);
 
   background-color: var(--item-color);
+
+  cursor: pointer;
+}
+
+.country__img {
+  max-height: 16rem;
+  object-fit: cover;
 }
 
 .country__data {
