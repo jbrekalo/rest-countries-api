@@ -1,7 +1,9 @@
 "use strict";
 
 const body = document.querySelector("body");
+const countriesMain = document.querySelector(".countries__main");
 const countriesContainer = document.querySelector(".countries__items");
+// const countries = document.querySelectorAll(".country");
 const darkmodeToggle = document.querySelector(".header__button");
 const darkmodeIcon = document.querySelector(".header__button-icon");
 const filterContainer = document.querySelector(".countries__filter");
@@ -22,6 +24,20 @@ darkmodeToggle.addEventListener("click", (e) => {
 filterContainer.addEventListener("click", function (e) {
   e.preventDefault();
   filterDropdown.classList.toggle("hidden");
+});
+
+countriesContainer.addEventListener("click", function (e) {
+  e.preventDefault();
+  const countries = document.querySelectorAll(".country");
+  const clicked = e.target.closest(".country");
+
+  if (!clicked) return;
+
+  countriesMain.classList.add("hidden");
+
+  //   countries.forEach((c) => c.classList.add("hidden"));
+
+  console.log(clicked);
 });
 
 const getCountries = async function () {
