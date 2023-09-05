@@ -1,29 +1,25 @@
 "use strict";
 
 const body = document.querySelector("body");
-const darkmodeToggle = document.querySelector(".header__button");
-const filterButton = document.querySelector(".countries__filter");
-const filterDropdown = document.querySelector(".countries__filter-dropdown");
-const darkmodeIcon = document.querySelector(".header__button-icon");
-
 const countriesContainer = document.querySelector(".countries__items");
+const darkmodeToggle = document.querySelector(".header__button");
+const darkmodeIcon = document.querySelector(".header__button-icon");
+const filterContainer = document.querySelector(".countries__filter");
+const filterButton = document.querySelector(".countries__filter-button");
+const filterDropdown = document.querySelector(".countries__filter-dropdown");
 
 darkmodeToggle.addEventListener("click", (e) => {
   e.preventDefault();
   if (body.dataset.theme === "dark") {
     body.removeAttribute("data-theme", "dark");
     body.setAttribute("data-theme", "light");
-    darkmodeIcon.lastElementChild.attributes.fill.value = "none";
-    darkmodeIcon.lastElementChild.style.stroke = "black";
   } else {
     body.removeAttribute("data-theme", "light");
     body.setAttribute("data-theme", "dark");
-    darkmodeIcon.lastElementChild.attributes.fill.value = "white";
-    darkmodeIcon.lastElementChild.style.stroke = "white";
   }
 });
 
-filterButton.addEventListener("click", function (e) {
+filterContainer.addEventListener("click", function (e) {
   e.preventDefault();
   filterDropdown.classList.toggle("hidden");
 });
@@ -33,7 +29,6 @@ const getCountries = async function () {
   const data = await response.json();
 
   data.forEach((country) => {
-    console.log(country);
     renderCountries(country);
   });
 };
