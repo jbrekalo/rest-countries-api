@@ -91,7 +91,7 @@ body {
   line-height: normal;
 
   background: var(--background-color);
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 /* make images easier to work with */
@@ -332,7 +332,6 @@ select {
 
 .details__container {
   max-width: 128rem;
-  min-height: 102.4rem;
   margin: 0 auto;
 }
 
@@ -380,8 +379,7 @@ select {
 }
 
 .details__img {
-  max-width: 38.8vw;
-  /* height: auto; */
+  width: 100%;
 
   border-radius: 10px;
 }
@@ -541,12 +539,6 @@ select {
     padding: 12rem 2.8rem 6.4rem;
   }
 
-  .details__container {
-    max-width: 128rem;
-    min-height: 102.4rem;
-    margin: 0 auto;
-  }
-
   .details__back-button {
     width: 10.4rem;
     height: 3.2rem;
@@ -576,8 +568,8 @@ select {
   }
 
   .details__img {
-    max-width: 100%;
-    /* height: auto; */
+    max-width: none;
+    width: 100%;
   }
 
   .details__name {
