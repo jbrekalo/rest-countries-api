@@ -5,13 +5,19 @@ const countriesMain = document.querySelector(".countries__main");
 const detailsMain = document.querySelector(".details__main");
 const countriesContainer = document.querySelector(".countries__items");
 const detailsContainer = document.querySelector(".details__container");
+const countriesSearch = document.querySelector(".countries__input");
 const backButton = document.querySelector(".details__back-button");
 const darkmodeToggle = document.querySelector(".header__button");
 const filterContainer = document.querySelector(".countries__filter");
 const filterButton = document.querySelector(".countries__filter-button");
 const filterDropdown = document.querySelector(".countries__filter-dropdown");
-let countries;
-let selectedCountry;
+
+let state = {
+  query: "",
+  countries: [],
+  codeToName: {},
+  selectedCountry: "",
+};
 
 darkmodeToggle.addEventListener("click", (e) => {
   e.preventDefault();
@@ -39,8 +45,18 @@ countriesContainer.addEventListener("click", function (e) {
 
   countriesMain.classList.toggle("hidden");
   detailsMain.classList.toggle("hidden");
+});
 
-  console.log(selectedCountry);
+detailsContainer.addEventListener("click", function (e) {
+  // e.preventDefault();
+
+  const detailsContent = document.querySelector(".details__content");
+  const selectedCountry = e.target.closest(".details__neighbour").innerHTML;
+
+  if (!selectedCountry) return;
+
+  detailsContent.parentNode.removeChild(detailsContent);
+  getCountryDetails(selectedCountry);
 });
 
 backButton.addEventListener("click", function (e) {
@@ -53,12 +69,44 @@ backButton.addEventListener("click", function (e) {
   detailsMain.classList.add("hidden");
 });
 
-const getCountries = async function () {
+countriesSearch.addEventListener("keyup", function () {
+  // getCountries(countriesSearch.value, false);
+  let filteredCountries = [];
+
+  filteredCountries.push(
+    state.countries.filter((country) =>
+      country.name.common
+        .toLowerCase()
+        .includes(countriesSearch.value.toLowerCase())
+    )
+  );
+
+  console.log(filteredCountries[0]);
+});
+
+const getCountries = async function (query, getData = true) {
   const response = await fetch("https://restcountries.com/v3.1/all");
   const data = await response.json();
+
+  data.sort((a, b) => {
+    const country1 = a.name.common;
+    const country2 = b.name.common;
+
+    if (country1 < country2) {
+      return -1;
+    }
+    if (country1 > country2) {
+      return 1;
+    }
+
+    return 0;
+  });
+
   console.log(data);
 
-  data.forEach((country) => {
+  data.forEach((country, i) => {
+    state.countries[i] = country;
+    state.codeToName[country.cca3] = country.name.common;
     renderCountries(country);
   });
 };
@@ -71,7 +119,6 @@ const getCountryDetails = async function (selectedCountry) {
   );
   const data = await response.json();
 
-  console.log(data[0]);
   renderCountryDetails(data[0]);
 };
 
@@ -94,8 +141,6 @@ const renderCountries = function (country) {
 };
 
 const renderCountryDetails = function (country) {
-  const borderContainer = document.querySelector("details__border-container");
-  console.log(country);
   const markup = `
   <div class="details__content">
       <img src="${country.flags.png}" alt="" class="details__img">
@@ -135,12 +180,18 @@ const renderCountryDetails = function (country) {
           </div>
           <div class="details__border-container">
               <h3 class="details__border-label">Border Countries:</h3>
-              ${country.borders
-                .map(
-                  (border) =>
-                    `<button class="details__neighbour">${border}</button>`
-                )
-                .join("")}         
+              <div class="details__neighbour-container">
+              ${
+                country.borders
+                  ? country.borders
+                      .map(
+                        (border) =>
+                          `<button class="details__neighbour">${state.codeToName[border]}</button>`
+                      )
+                      .join("")
+                  : `<p class="details__no-border">There are no bordering countries.</p>`
+              }      
+              </div>   
           </div>
       </div>
   </div>
