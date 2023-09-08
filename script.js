@@ -3,7 +3,7 @@
 const body = document.querySelector("body");
 const countriesMain = document.querySelector(".countries__main");
 const detailsMain = document.querySelector(".details__main");
-const countriesContainer = document.querySelector(".countries__items");
+const countriesItems = document.querySelector(".countries__items");
 const detailsContainer = document.querySelector(".details__container");
 const countriesSearch = document.querySelector(".countries__input");
 const backButton = document.querySelector(".details__back-button");
@@ -35,8 +35,8 @@ filterContainer.addEventListener("click", function (e) {
   filterDropdown.classList.toggle("hidden");
 });
 
-countriesContainer.addEventListener("click", function (e) {
-  // e.preventDefault();
+countriesItems.addEventListener("click", function (e) {
+  e.preventDefault();
   const selectedCountry = e.target.closest(".country").dataset.countryName;
 
   if (!selectedCountry) return;
@@ -48,10 +48,10 @@ countriesContainer.addEventListener("click", function (e) {
 });
 
 detailsContainer.addEventListener("click", function (e) {
-  // e.preventDefault();
+  e.preventDefault();
 
   const detailsContent = document.querySelector(".details__content");
-  const selectedCountry = e.target.closest(".details__neighbour").innerHTML;
+  const selectedCountry = e.target.closest(".details__neighbour")?.innerHTML;
 
   if (!selectedCountry) return;
 
@@ -81,7 +81,8 @@ countriesSearch.addEventListener("keyup", function () {
     )
   );
 
-  console.log(filteredCountries[0]);
+  countriesItems.innerHTML = "";
+  filteredCountries[0].forEach((country) => renderCountries(country));
 });
 
 const getCountries = async function (query, getData = true) {
@@ -137,7 +138,7 @@ const renderCountries = function (country) {
   </article>
   `;
 
-  countriesContainer.insertAdjacentHTML("beforeend", markup);
+  countriesItems.insertAdjacentHTML("beforeend", markup);
 };
 
 const renderCountryDetails = function (country) {
