@@ -30,11 +30,6 @@ darkmodeToggle.addEventListener("click", (e) => {
   }
 });
 
-filterContainer.addEventListener("click", function (e) {
-  e.preventDefault();
-  filterDropdown.classList.toggle("hidden");
-});
-
 countriesItems.addEventListener("click", function (e) {
   e.preventDefault();
   const selectedCountry = e.target.closest(".country").dataset.countryName;
@@ -51,7 +46,7 @@ detailsContainer.addEventListener("click", function (e) {
   e.preventDefault();
 
   const detailsContent = document.querySelector(".details__content");
-  const selectedCountry = e.target.closest(".details__neighbour")?.innerHTML;
+  const selectedCountry = e.target.dataset.borderCountry;
 
   if (!selectedCountry) return;
 
@@ -85,7 +80,28 @@ countriesSearch.addEventListener("keyup", function () {
   filteredCountries[0].forEach((country) => renderCountries(country));
 });
 
-const getCountries = async function (query, getData = true) {
+filterContainer.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  filterDropdown.classList.toggle("hidden");
+
+  const selectedRegion = e.target.dataset.region;
+
+  if (!selectedRegion) return;
+
+  let filteredCountries = [];
+
+  filteredCountries.push(
+    state.countries.filter((country) =>
+      country.region.toLowerCase().includes(selectedRegion.toLowerCase())
+    )
+  );
+
+  countriesItems.innerHTML = "";
+  filteredCountries[0].forEach((country) => renderCountries(country));
+});
+
+const getCountries = async function () {
   const response = await fetch("https://restcountries.com/v3.1/all");
   const data = await response.json();
 
@@ -187,7 +203,7 @@ const renderCountryDetails = function (country) {
                   ? country.borders
                       .map(
                         (border) =>
-                          `<button class="details__neighbour">${state.codeToName[border]}</button>`
+                          `<button class="details__neighbour" data-border-country="${state.codeToName[border]}">${state.codeToName[border]}</button>`
                       )
                       .join("")
                   : `<p class="details__no-border">There are no bordering countries.</p>`
