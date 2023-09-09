@@ -19,6 +19,9 @@ let state = {
   selectedCountry: "",
 };
 
+///////////////////////////
+// Functions
+
 const getCountries = async function () {
   // Fetch Data
   const response = await fetch(`${API_URL}/all`);
@@ -59,7 +62,7 @@ const getCountries = async function () {
       languages: country.languages
         ? Object.values(country.languages).toString().replaceAll(",", ", ")
         : "No Official Language",
-      flag: country.flags.png,
+      flag: country.flags.svg,
       borders: country.borders,
     };
   });
@@ -75,6 +78,10 @@ const getCountries = async function () {
 
 getCountries();
 
+///////////////////////////
+// Event Listeners
+
+// Toggle Dark Mode
 darkmodeToggle.addEventListener("click", (e) => {
   e.preventDefault();
   if (body.dataset.theme === "dark") {
@@ -86,6 +93,7 @@ darkmodeToggle.addEventListener("click", (e) => {
   }
 });
 
+// Open country and get details
 countriesItems.addEventListener("click", function (e) {
   e.preventDefault();
   state.selectedCountry = e.target.closest(".country").dataset.countryName;
@@ -101,10 +109,12 @@ countriesItems.addEventListener("click", function (e) {
   detailsMain.classList.toggle("hidden");
 });
 
+// Open Border Countries
 detailsContainer.addEventListener("click", function (e) {
   e.preventDefault();
 
   const detailsContent = document.querySelector(".details__content");
+  state.selectedCountry = e.target.dataset.borderCountry;
   let [selectedCountryData] = state.countries.filter(
     (name) => name.commonName === state.selectedCountry
   );
@@ -115,6 +125,7 @@ detailsContainer.addEventListener("click", function (e) {
   renderCountryDetails(selectedCountryData);
 });
 
+// Return back to Main Page
 backButton.addEventListener("click", function (e) {
   e.preventDefault();
 
@@ -125,51 +136,49 @@ backButton.addEventListener("click", function (e) {
   detailsMain.classList.add("hidden");
 });
 
+// Search for Countries
 countriesSearch.addEventListener("keyup", function () {
   let filteredCountries = [];
 
   filteredCountries.push(
     state.countries.filter((country) =>
-      country.name.common
+      country.commonName
         .toLowerCase()
         .includes(countriesSearch.value.toLowerCase())
     )
   );
 
   countriesItems.innerHTML = "";
-  filteredCountries[0].forEach((country) => renderCountries(country));
+  filteredCountries[0].forEach((country) => renderCountries([country]));
 });
 
+// Filter by Region
 filterContainer.addEventListener("click", function (e) {
   e.preventDefault();
 
   filterDropdown.classList.toggle("hidden");
 
   const selectedRegion = e.target.dataset.region;
+  let filteredCountries = [];
 
   if (!selectedRegion) return;
 
-  let filteredCountries = [];
-
-  filteredCountries.push(
-    state.countries.filter((country) =>
-      country.region.toLowerCase().includes(selectedRegion.toLowerCase())
-    )
-  );
+  if (selectedRegion === "All") {
+    filteredCountries.push(state.countries);
+  } else {
+    filteredCountries.push(
+      state.countries.filter((country) =>
+        country.region.toLowerCase().includes(selectedRegion.toLowerCase())
+      )
+    );
+  }
 
   countriesItems.innerHTML = "";
-  filteredCountries[0].forEach((country) => renderCountries(country));
+  filteredCountries.forEach((country) => renderCountries(country));
 });
 
-// const getCountryDetails = async function (selectedCountry) {
-//   const response = await fetch(
-//     `${API_URL}/name/${selectedCountry}?fullText=true`
-//   );
-//   const data = await response.json();
-
-//   renderCountryDetails(data[0]);
-// };
-
+///////////////////////////
+// Render Content
 const renderCountries = function (countries) {
   let markup = "";
 
