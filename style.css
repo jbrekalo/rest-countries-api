@@ -271,7 +271,8 @@ select {
 }
 
 .countries__items {
-  display: grid;
+  /* Change display to grid before render */
+  display: flex;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 7.4rem;
 
@@ -459,6 +460,17 @@ select {
   font-size: var(--fs-400);
   line-height: 1.5;
   font-weight: 600;
+}
+
+.spinner {
+  margin: 1rem auto;
+  text-align: center;
+}
+
+.spinner svg {
+  height: 6rem;
+  width: 6rem;
+  fill: var(--font-primary-color);
 }
 
 .hidden {

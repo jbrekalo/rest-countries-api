@@ -22,8 +22,20 @@ let state = {
 ///////////////////////////
 // Functions
 
+const renderSpinner = function (location) {
+  const markup = `
+    <div class="spinner">
+      <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_S1WN{animation:spinner_MGfb .8s linear infinite;animation-delay:-.8s}.spinner_Km9P{animation-delay:-.65s}.spinner_JApP{animation-delay:-.5s}@keyframes spinner_MGfb{93.75%,100%{opacity:.2}}</style><circle class="spinner_S1WN" cx="4" cy="12" r="3"/><circle class="spinner_S1WN spinner_Km9P" cx="12" cy="12" r="3"/><circle class="spinner_S1WN spinner_JApP" cx="20" cy="12" r="3"/></svg>
+    </div>
+  `;
+  location.innerHTML = "";
+  location.insertAdjacentHTML("afterbegin", markup);
+};
+
 const getCountries = async function () {
   try {
+    renderSpinner(countriesItems);
+
     // Fetch Data
     const response = await fetch(`${API_URL}/all`);
     const data = await response.json();
@@ -159,17 +171,16 @@ countriesSearch.addEventListener("keyup", function () {
   );
 
   countriesItems.innerHTML = "";
+  countriesItems.style.display = "grid";
 
-  if (filteredCountries[0].length === 0) {
+  if (filteredCountries[0].length) {
+    filteredCountries[0].forEach((country) => renderCountries([country]));
+  } else {
     renderError(
       `Oops! No results for "${countriesSearch.value}", try again!`,
       countriesItems
     );
-  } else {
-    filteredCountries[0].forEach((country) => renderCountries([country]));
   }
-
-  console.log(filteredCountries[0].length);
 });
 
 // Filter by Region
@@ -200,6 +211,9 @@ filterContainer.addEventListener("click", function (e) {
 ///////////////////////////
 // Render Content
 const renderCountries = function (countries) {
+  countriesItems.innerHTML = "";
+  countriesItems.style.display = "grid";
+
   let markup = "";
 
   countries.forEach((country) => {
@@ -284,6 +298,5 @@ const renderError = function (message, location) {
   </div>
   `;
 
-  location.style.display = "flex";
   location.insertAdjacentHTML("beforeend", markup);
 };
