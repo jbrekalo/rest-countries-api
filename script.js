@@ -144,6 +144,7 @@ countriesItems.addEventListener("click", function (e) {
 // Open Border Countries
 detailsContainer.addEventListener("click", function (e) {
   e.preventDefault();
+  window.scrollTo(0, 0);
 
   const detailsContent = document.querySelector(".details__content");
   state.selectedCountry = e.target.dataset.borderCountry;
