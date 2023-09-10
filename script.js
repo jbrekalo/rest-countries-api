@@ -161,6 +161,10 @@ detailsContainer.addEventListener("click", function (e) {
 backButton.addEventListener("click", function (e) {
   e.preventDefault();
 
+  countriesSearch.value = "";
+  countriesItems.innerHTML = "";
+  renderCountries(state.countries);
+
   const detailsContent = document.querySelector(".details__content");
 
   detailsContent.parentNode.removeChild(detailsContent);
