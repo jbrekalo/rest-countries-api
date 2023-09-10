@@ -6,6 +6,7 @@ const detailsMain = document.querySelector(".details__main");
 const countriesItems = document.querySelector(".countries__items");
 const detailsContainer = document.querySelector(".details__container");
 const countriesSearch = document.querySelector(".countries__input");
+const countriesMessage = document.querySelector(".countries__message");
 const backButton = document.querySelector(".details__back-button");
 const darkmodeToggle = document.querySelector(".header__button");
 const filterContainer = document.querySelector(".countries__filter");
@@ -22,19 +23,24 @@ let state = {
 ///////////////////////////
 // Functions
 
-const renderSpinner = function (location) {
+const renderSpinner = function (location, status = "open") {
   const markup = `
-    <div class="spinner">
-      <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_S1WN{animation:spinner_MGfb .8s linear infinite;animation-delay:-.8s}.spinner_Km9P{animation-delay:-.65s}.spinner_JApP{animation-delay:-.5s}@keyframes spinner_MGfb{93.75%,100%{opacity:.2}}</style><circle class="spinner_S1WN" cx="4" cy="12" r="3"/><circle class="spinner_S1WN spinner_Km9P" cx="12" cy="12" r="3"/><circle class="spinner_S1WN spinner_JApP" cx="20" cy="12" r="3"/></svg>
-    </div>
+  <div class="spinner">
+    <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_S1WN{animation:spinner_MGfb .8s linear infinite;animation-delay:-.8s}.spinner_Km9P{animation-delay:-.65s}.spinner_JApP{animation-delay:-.5s}@keyframes spinner_MGfb{93.75%,100%{opacity:.2}}</style><circle class="spinner_S1WN" cx="4" cy="12" r="3"/><circle class="spinner_S1WN spinner_Km9P" cx="12" cy="12" r="3"/><circle class="spinner_S1WN spinner_JApP" cx="20" cy="12" r="3"/></svg>
+  </div>
   `;
-  location.innerHTML = "";
-  location.insertAdjacentHTML("afterbegin", markup);
+
+  if (status === "open") {
+    location.innerHTML = "";
+    location.insertAdjacentHTML("beforeend", markup);
+  } else {
+    location.innerHTML = "";
+  }
 };
 
 const getCountries = async function () {
   try {
-    renderSpinner(countriesItems);
+    renderSpinner(countriesMessage);
 
     // Fetch Data
     const response = await fetch(`${API_URL}/all`);
@@ -92,9 +98,11 @@ const getCountries = async function () {
 
     // Render Countries
     renderCountries(state.countries);
+
+    renderSpinner(countriesMessage, "close");
   } catch (err) {
     console.error(`${err} 💥`);
-    renderError("Oops! Something went wrong... :(", countriesItems);
+    renderError("Oops! Something went wrong... :(", countriesMessage);
   }
 };
 
@@ -171,14 +179,14 @@ countriesSearch.addEventListener("keyup", function () {
   );
 
   countriesItems.innerHTML = "";
-  countriesItems.style.display = "grid";
+  countriesMessage.innerHTML = "";
 
   if (filteredCountries[0].length) {
     filteredCountries[0].forEach((country) => renderCountries([country]));
   } else {
     renderError(
       `Oops! No results for "${countriesSearch.value}", try again!`,
-      countriesItems
+      countriesMessage
     );
   }
 });
@@ -211,9 +219,6 @@ filterContainer.addEventListener("click", function (e) {
 ///////////////////////////
 // Render Content
 const renderCountries = function (countries) {
-  countriesItems.innerHTML = "";
-  countriesItems.style.display = "grid";
-
   let markup = "";
 
   countries.forEach((country) => {
@@ -298,5 +303,6 @@ const renderError = function (message, location) {
   </div>
   `;
 
+  location.innerHTML = "";
   location.insertAdjacentHTML("beforeend", markup);
 };
