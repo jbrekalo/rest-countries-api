@@ -23,57 +23,67 @@ let state = {
 // Functions
 
 const getCountries = async function () {
-  // Fetch Data
-  const response = await fetch(`${API_URL}/all`);
-  const data = await response.json();
+  try {
+    // Fetch Data
+    const response = await fetch(`${API_URL}/all`);
+    const data = await response.json();
 
-  // Sort Data
-  data.sort((a, b) => {
-    const country1 = a.name.common;
-    const country2 = b.name.common;
+    if (!response.ok)
+      throw new Error(
+        "Oops, page not found. Check your connection and try again... :("
+      );
 
-    if (country1 < country2) {
-      return -1;
-    }
-    if (country1 > country2) {
-      return 1;
-    }
+    // Sort Data
+    data.sort((a, b) => {
+      const country1 = a.name.common;
+      const country2 = b.name.common;
 
-    return 0;
-  });
+      if (country1 < country2) {
+        return -1;
+      }
+      if (country1 > country2) {
+        return 1;
+      }
 
-  // Update State
-  state.countries = data.map((country) => {
-    return {
-      commonName: country.name.common,
-      nativeName: country.name.nativeName
-        ? Object.values(country.name.nativeName)[0].common
-        : "No Native Name",
-      population: new Intl.NumberFormat("de-DE").format(+country.population),
-      region: country.region,
-      subregion: country.subregion ? country.subregion : "No Subregion",
-      capital: country.capital ? country.capital[0] : "No Capital City",
-      tld: country.tld
-        ? country.tld.toString().replaceAll(",", ", ")
-        : "No TLD",
-      currencies: country.currencies
-        ? Object.values(country.currencies)[0].name
-        : "No Official Currency",
-      languages: country.languages
-        ? Object.values(country.languages).toString().replaceAll(",", ", ")
-        : "No Official Language",
-      flag: country.flags.svg,
-      borders: country.borders,
-    };
-  });
+      return 0;
+    });
 
-  // Pair Country codes with names
-  data.forEach((country) => {
-    state.codeToName[country.cca3] = country.name.common;
-  });
+    // Update State
+    state.countries = data.map((country) => {
+      return {
+        commonName: country.name.common,
+        nativeName: country.name.nativeName
+          ? Object.values(country.name.nativeName)[0].common
+          : "No Native Name",
+        population: new Intl.NumberFormat("en-US").format(+country.population),
+        region: country.region,
+        subregion: country.subregion ? country.subregion : "No Subregion",
+        capital: country.capital ? country.capital[0] : "No Capital City",
+        tld: country.tld
+          ? country.tld.toString().replaceAll(",", ", ")
+          : "No TLD",
+        currencies: country.currencies
+          ? Object.values(country.currencies)[0].name
+          : "No Official Currency",
+        languages: country.languages
+          ? Object.values(country.languages).toString().replaceAll(",", ", ")
+          : "No Official Language",
+        flag: country.flags.svg,
+        borders: country.borders,
+      };
+    });
 
-  // Render Countries
-  renderCountries(state.countries);
+    // Pair Country codes with names
+    data.forEach((country) => {
+      state.codeToName[country.cca3] = country.name.common;
+    });
+
+    // Render Countries
+    renderCountries(state.countries);
+  } catch (err) {
+    console.error(`${err} 💥`);
+    renderError("Oops! Something went wrong... :(", countriesItems);
+  }
 };
 
 getCountries();
@@ -149,7 +159,17 @@ countriesSearch.addEventListener("keyup", function () {
   );
 
   countriesItems.innerHTML = "";
-  filteredCountries[0].forEach((country) => renderCountries([country]));
+
+  if (filteredCountries[0].length === 0) {
+    renderError(
+      `Oops! No results for "${countriesSearch.value}", try again!`,
+      countriesItems
+    );
+  } else {
+    filteredCountries[0].forEach((country) => renderCountries([country]));
+  }
+
+  console.log(filteredCountries[0].length);
 });
 
 // Filter by Region
@@ -252,4 +272,18 @@ const renderCountryDetails = function (country) {
   `;
 
   detailsContainer.insertAdjacentHTML("beforeend", markup);
+};
+
+const renderError = function (message, location) {
+  const markup = `
+  <div class="error">
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1{fill:;opacity:0;}.cls-2{fill:;}</style></defs><title>alert-triangle</title><g id="Layer_2" data-name="Layer 2"><g id="alert-triangle"><g id="alert-triangle-2" data-name="alert-triangle"><rect class="cls-1" width="24" height="24" transform="translate(24 0) rotate(90)"/><path class="cls-2" d="M22.56,16.3,14.89,3.58a3.43,3.43,0,0,0-5.78,0L1.44,16.3a3,3,0,0,0-.05,3A3.37,3.37,0,0,0,4.33,21H19.67a3.37,3.37,0,0,0,2.94-1.66A3,3,0,0,0,22.56,16.3Zm-1.7,2.05a1.31,1.31,0,0,1-1.19.65H4.33a1.31,1.31,0,0,1-1.19-.65,1,1,0,0,1,0-1L10.82,4.62a1.48,1.48,0,0,1,2.36,0l7.67,12.72A1,1,0,0,1,20.86,18.35Z"/><circle class="cls-2" cx="12" cy="16" r="1"/><path class="cls-2" d="M12,8a1,1,0,0,0-1,1v4a1,1,0,0,0,2,0V9A1,1,0,0,0,12,8Z"/></g></g></g></svg>
+    </div>
+    <p>${message}</p>
+  </div>
+  `;
+
+  location.style.display = "flex";
+  location.insertAdjacentHTML("beforeend", markup);
 };

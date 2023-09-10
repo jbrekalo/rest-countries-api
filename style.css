@@ -439,6 +439,28 @@ select {
   cursor: pointer;
 }
 
+.error {
+  display: flex;
+  align-items: center;
+
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 5rem 4rem;
+}
+
+.error svg {
+  height: 3rem;
+  width: 3rem;
+  fill: var(--icon-secondary-color);
+}
+
+.error p {
+  margin-left: 1.5rem;
+  font-size: var(--fs-400);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
 .hidden {
   display: none;
 }
