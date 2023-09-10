@@ -126,6 +126,8 @@ darkmodeToggle.addEventListener("click", (e) => {
 // Open country and get details
 countriesItems.addEventListener("click", function (e) {
   e.preventDefault();
+  window.scrollTo(0, 0);
+
   state.selectedCountry = e.target.closest(".country").dataset.countryName;
   let [selectedCountryData] = state.countries.filter(
     (name) => name.commonName === state.selectedCountry
