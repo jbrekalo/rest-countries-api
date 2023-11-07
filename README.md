@@ -4,7 +4,7 @@
  <h1>REST Countries API with color theme switcher</h1>
  <h3>
     <!-- Github Pages Live -->
-    <a href="https://mohamedaridah.github.io/frontendmentor_REST-Countries-API-with-color-theme-switcher/">Live</a>
+    <a href="https://rest-countries-api-jbrekalo.netlify.app/">Live</a>
     <span>&nbsp;|&nbsp;</span>
     <!-- Frontend Mentor Live solution -->
     <a href="https://www.frontendmentor.io/solutions/rest-countries-api-with-color-theme-switcher-using-vanilla-javascript-ByX3ZG1Vc" title="Check My Solution on Frontend Mentor">
@@ -23,8 +23,8 @@
     <p>
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40" title="HTML5"/>
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40" title="CSS3"/>
-      <img src="https://raw.githubusercontent.com/devicons/devicon/2ae2a900d2f041da66e950e4d48052658d850630/icons/sass/sass-original.svg" alt="sass" width="40" height="40" title="SASS"/>
-      &nbsp;<img src="https://https://fontawesome.com/images/favicon/icon.svg" alt="fontawesome" width="35" height="35" title="Font Awesome"/> &nbsp;<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="35" height="35" title="JavaScript"/>
+      <img src="https://https://fontawesome.com/images/favicon/icon.svg" alt="fontawesome" width="35" height="35" title="Font Awesome"/>
+      <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="35" height="35" title="JavaScript"/>
     </p>
   </h5>
 </div>
