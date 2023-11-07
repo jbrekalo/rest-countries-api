@@ -23,7 +23,6 @@
     <p>
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40" title="HTML5"/>
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40" title="CSS3"/>
-      <img src="https://https://fontawesome.com/images/favicon/icon.svg" alt="fontawesome" width="35" height="35" title="Font Awesome"/>
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="35" height="35" title="JavaScript"/>
     </p>
   </h5>
